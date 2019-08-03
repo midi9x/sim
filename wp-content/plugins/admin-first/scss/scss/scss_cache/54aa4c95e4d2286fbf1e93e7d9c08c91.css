@@ -1,0 +1,65 @@
+/* compiled by scssphp v0.0.10 on Mon, 17 Jun 2019 15:16:09 +0000 (0.0082s) */
+
+/*
+ * Button mixin- creates 3d-ish button effect with correct
+ * highlights/shadows, based on a base color.
+ */
+html {
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed; }
+
+body {
+  background: transparent; }
+
+body.login div#login h1 {
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: contain; }
+
+.wp-core-ui .button-primary {
+  background: #19be96;
+  border-color: #19be96;
+  color: white;
+  box-shadow: none;
+  text-shadow: none; }
+  .wp-core-ui .button-primary:hover, .wp-core-ui .button-primary:focus {
+    background: #1bcca1;
+    border-color: #1bcca1;
+    color: white;
+    box-shadow: none; }
+  .wp-core-ui .button-primary:focus {
+    box-shadow: none; }
+  .wp-core-ui .button-primary:active {
+    background: #139172;
+    border-color: #107a61;
+    box-shadow: inset 0 2px 0 #107a61; }
+  .wp-core-ui .button-primary[disabled], .wp-core-ui .button-primary:disabled, .wp-core-ui .button-primary.button-primary-disabled, .wp-core-ui .button-primary.disabled {
+    color: #c7d1cf !important;
+    background: #1ee1b2 !important;
+    border-color: #1ee1b2 !important;
+    text-shadow: none !important; }
+  .wp-core-ui .button-primary.button-hero {
+    box-shadow: none !important; }
+    .wp-core-ui .button-primary.button-hero:active {
+      box-shadow: none; }
+
+.login form .button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 6px 10px !important;
+  height: auto !important;
+  line-height: 28px !important;
+  font-size: 16px; }
+
+.login-subtitle {
+  margin: 10px 10px 10px 10px;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 1.5; }
+
+.login-footer {
+  margin: 40px 10px 10px 10px;
+  text-align: center;
+  font-size: 11px;
+  opacity: 0.6; }

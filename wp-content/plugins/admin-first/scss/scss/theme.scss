@@ -1,0 +1,53 @@
+@import '_variables_menu';
+@import 'variables';
+@import 'mixins';
+
+#wpadminbar{
+	box-shadow: 0 1px 0px rgba(0,0,0,0.05);
+}
+
+@mixin folded( $fold-name ) {
+	.#{$fold-name}{
+		&:not(.admin-menu-h){
+			#adminmenu, 
+			#adminmenu li.menu-top, 
+			#adminmenuback,
+			#adminmenuwrap{
+				width: $menu-fold-width;
+			}
+			#adminmenu .wp-menu-name{
+				font-size: 11px;
+				font-weight: normal;
+				width: $menu-fold-width;
+				padding:0 0 6px 0;
+				display: table-cell;
+				vertical-align: middle;
+			}
+			#adminmenu div.wp-menu-image{
+				padding: 12px 0 0 0;
+				&:before{
+					padding:0;
+					font-size: 18px;
+				}
+			}
+			#adminmenu li.menu-top{
+				&:hover,
+				&:focus,
+				&.wp-has-current-submenu,
+				&.current{
+				}
+				a.menu-top{
+					height: $menu-fold-height;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 782px) {
+	@include folded("folded");
+}
+
+@media (min-width: 782px) and (max-width: 960px) {
+	@include folded("auto-fold");
+}

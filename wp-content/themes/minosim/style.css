@@ -1,0 +1,390 @@
+/*
+Theme Name: MinoSim
+Theme URI: https://mino.vn
+Author: Mino
+Author URI: https://mino.vn
+Description: Mino sim
+Version: 1.0.2
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: minosim
+*/
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1080px;
+    }
+}
+html, body {
+    font-family: Helvetica,Arial,'DejaVu Sans','Liberation Sans',Freesans,sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    background: #f0f0f0;
+    font-family: Helvetica,Arial,'DejaVu Sans','Liberation Sans',Freesans,sans-serif;
+}
+a {
+    color: #373435;
+    text-decoration: none;
+}
+@media screen and (max-width: 575px) {
+    .ft-wpbs .page-link {
+        font-size: 14px;
+        padding: .3rem .45rem;
+    }
+}
+.bg-dark {
+    background: #3a4283;
+    background-color: #3a4283!important;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+@media (min-width: 768px) {
+    #sidebar-left, #sidebar-right {
+        margin-left: 15px;
+        margin-right: 15px;
+        padding-left: 0;
+        padding-right: 0;
+        background: #fff;
+        -ms-flex: 0 0 calc(25% - 30px);
+        flex: 0 0 calc(25% - 30px);
+        max-width: calc(25% - 30px);
+    }
+}
+#navbarNav ul li a {
+    color: #fff;
+    text-transform: uppercase;
+    padding: .75rem 1rem;
+    font-weight: bold;
+    font-size: 15px;
+}
+#content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.widget-area h3.widget-title {
+    background: #394085;
+    color: #ffcd00;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 8px 10px;
+    text-align: center;
+    margin: 0;
+}
+.widget-area ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.widget-area ul li {
+    border-bottom: 1px solid #ededed;
+    padding: 5px 10px;
+}
+.widget-area ul li a {
+    color: #373435;
+    text-decoration: none;
+}
+#navbarNav ul li.active a, #navbarNav ul li:hover a {
+    color: #3a4283;
+}
+/*#navbarNav ul li.active a {
+    font-weight: bold;
+}*/
+#navbarNav ul li.active, #navbarNav ul li:hover {
+    background: #ffcc29;
+}
+.card {
+    border: none;
+}
+#search-form:hover,
+#search-form:active {
+    background: #ffcd00!important;
+    border-color: #ffcd00!important;
+}
+
+.btn-primary {
+    background: #ffcd00;
+    border-color: #ffcd00;
+}
+.btn-primary:hover,
+.btn-primary:active {
+    color: #fff;
+    background-color: #394085!important;
+    border-color: #394085!important;
+}
+.page-item.active .page-link {
+    background-color: #ffcd00;
+    border-color: #ffcd00;
+}
+.page-link {
+    color: #3a4283;
+}
+div.wpcf7-response-output {
+    margin: 0;
+}
+footer.entry-footer {
+    overflow: auto;
+    margin: 10px 0;
+}
+#colophon {
+    background: #3a4283;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+}
+.footer-widgets {
+    background: #e1e2e1;
+    padding: 15px 0;
+    color: #777;
+}
+.footer-widgets h3.widget-title {
+    color: #c4161c;
+    font-size: 1.3em;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px dashed #c4161c;
+    padding-bottom: 5px;
+}
+div.wpcf7 {
+    padding: 15px;
+    background: #e1e2e1;
+    margin: 10px 0;
+}
+.search-sim-form {
+    padding: 10px;
+    background: #394085;
+    margin-bottom: 10px;
+    color: #fff;
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.loc-sim-form {
+    padding: 10px;
+    background: #f0f0f0;
+    color: #fff;
+}
+#form-loc-sim .form-control {
+    padding: .375rem .24rem;
+}
+table tr td.network-td {
+    padding: 0;
+}
+.network-td img {
+    max-height: 20px;
+}
+.blink {
+    animation: blink 1s steps(5,start) infinite;
+    -webkit-animation: blink 1s steps(5,start) infinite;
+    font-size: 24px;
+    font-weight: 700;
+    color: #c4161c;
+    word-break: break-all;
+    text-align: center;
+    margin-top: 1rem;
+}
+@keyframes blink {
+    to{visibility:hidden}
+}
+@-webkit-keyframes blink {
+    to{visibility:hidden}
+}
+.orders .order p {
+    margin: 0;
+}
+.orders .order p.name {
+    color: #c4161c;
+    font-weight: bold;
+}
+.orders .order {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    color: #666666;
+}
+td.so-sim a {
+    color: #c4161c;
+    font-weight: bold;
+}
+.vcenter {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.left-icon {
+    width: 30px;
+    display: inline-block;
+}
+.left-icon svg {
+    font-size: 30px;
+    color: #3a4283;
+}
+.right-text {
+    font-size: 13px;
+    color: #000;
+    width: calc(100% - 35px);
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 20px;
+	margin-left: 0;
+}
+.right-text a {
+    font-size: 13px;
+    color: #000;
+}
+.post-loop  {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e1e2e1;
+}
+.post-loop h2.entry-title {
+    line-height: 28px;
+}
+.post-loop h2.entry-title a {
+    color: #373435;
+    font-size: 20px;
+    text-decoration: none;
+}
+.entry-content p {
+    margin-bottom: .5rem;
+    font-size: 15px;
+}
+.bold {
+    font-weight: bold;
+}
+.sim-info {
+    font-size: 15px;
+    font-weight: bold;
+}
+.sim-info .so {
+    color: #c4161c;
+    font-weight: bold;
+    font-size: 25px;
+}
+.sim-info .gia {
+    font-size: 18px;
+}
+.sim-info .mang {
+
+}
+@media screen and (max-width: 575px) {
+    #content {
+        padding-top: 0;
+    }
+    html, body {
+        background: #fff;
+    }
+    #main {
+        padding: 0!important;
+        padding-top: 15px!important;
+    }
+    #masthead .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+.header-top {
+    background: #fff;
+}
+h1.entry-title {
+    color: #c4161c;
+    font-size: 1.4rem;
+    background: url(images/title-left.png);
+    background-repeat: no-repeat;
+    background-position: 0;
+    padding-left: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+img.alignright {float:right; margin:0 0 1em 1em}
+img.alignleft {float:left; margin:0 1em 1em 0}
+img.aligncenter {display: block; margin-left: auto; margin-right: auto}
+a img.alignright {float:right; margin:0 0 1em 1em}
+a img.alignleft {float:left; margin:0 1em 1em 0}
+a img.aligncenter {display: block; margin-left: auto; margin-right: auto}
+/*This is for my image caption style*/
+
+.wp-caption {
+	background: #f3f3f3;
+	border: 1px solid #ddd;
+	max-width: 96%;
+	margin: 5px 0 20px 10px;
+	padding:15px 5px 10px 15px;
+	text-align: center;
+}
+
+.wp-caption.alignnone {
+	margin: 5px 0 20px 10px;
+	padding:15px 5px 10px 15px;
+}
+
+.wp-caption.alignleft {
+	margin: 5px 15px 10px 10px;
+	padding:15px 15px 10px 15px;
+}
+
+.wp-caption.alignright {
+	margin: 5px 0 20px 10px;
+	padding:15px 5px 10px 15px;
+
+}
+
+.wp-caption img {
+	border: 0 none;
+	height: auto;
+	margin: 0;
+	max-width: 98.5%;
+	padding: 0;
+	width: auto;
+}
+
+.wp-caption p.wp-caption-text {
+	font-size: 16px;
+	line-height: 17px;
+	margin-top: 10px;
+}
+.wp-caption.aligncenter {
+    margin: 10px auto;
+}
+#colophon a {
+    color: #fff;
+}
+img.aligncenter {
+    border: 0 none;
+    height: auto;
+    margin: 0 auto;;
+    max-width: 90%;
+    padding: 0;
+    width: auto;
+}
+.entry-content img {
+    max-width: 90%;
+	height: auto;
+}
+blockquote {
+    margin: 0;
+    margin-left: 30px;
+}
+.footer-widgets ul {
+    padding-left: 20px;
+}
+div.wpcf7 .ajax-loader {
+    margin: 10px auto;
+    display: block;
+}
+a:hover, .widget-area ul li a:hover {
+    color: #c4161c;
+    text-decoration: none;
+}
+@media (max-width: 768px) {
+    .navbar-dark .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+    }
+    .navbar-dark .navbar-toggler {
+        border-color: rgb(255, 255, 255);
+    }
+    #colophon .col-md-6.text-right, #colophon .col-md-6.text-left {
+        text-align: center!important;
+    }
+}
+.table-bordered td, .table-bordered th {
+    white-space: nowrap;
+}
+.logo img {
+    width: 250px;
+}
