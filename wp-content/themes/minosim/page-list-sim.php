@@ -12,7 +12,7 @@ if ($keyword) {
     }
     add_filter( 'wpseo_canonical', 'filter_wpseo_canonical', 10, 1 );
     add_filter( 'wpseo_opengraph_url', 'filter_wpseo_canonical', 10, 1 );
-    
+
     function filter_wpseo_title($title) {
         global $keyword;
         if ($keyword) {
@@ -21,7 +21,7 @@ if ($keyword) {
         return $title;
     }
     add_filter( 'wpseo_title', 'filter_wpseo_title', 10, 1 );
-    
+
     function filter_wpseo_metadesc($desc) {
         global $keyword;
         if ($keyword) {
@@ -32,7 +32,7 @@ if ($keyword) {
     add_filter( 'wpseo_metadesc', 'filter_wpseo_metadesc', 10, 1 );
 }
 
-get_header(); 
+get_header();
 
 ?>
 
@@ -41,20 +41,27 @@ get_header();
             <div id="primary" class="content-area col-md-6 order-md-2 px-md-0 bg-white">
                 <main id="main" class="site-main p-2" role="main">
                     <?php get_search_sim_form(); ?>
-                    <?php if (!is_front_page()): ?>
+                    <?php if (!is_front_page()):
+                        $page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+                    ?>
                         <header class="entry-header">
-                    		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-                    	</header><!-- .entry-header -->
-                	<?php endif; ?>
+                            <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+                        </header><!-- .entry-header -->
+                    <?php else:
+                        $page = get_query_var( 'page' ) ? get_query_var( 'page' ) : 1;
+                    ?>
+                    <?php endif; ?>
+
                     <?php get_filter_sim_form(); ?>
                     <?php
                     $args = array(
                         'post_type' => 'sim',
-                        'paged' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1
+                        'post_status' => 'publish',
+                        'paged' => $page
                     );
-                    
+
                     $query = '';
-                    
+
                     $keyword = $keyword ? $keyword : get_post_meta(get_the_ID(), '$keyword', true );
                     if ($keyword) {
                         if (strpos($keyword, '*') !== false) {
@@ -64,7 +71,7 @@ get_header();
                         }
                         $query .= " AND post_name LIKE '$keyword'";
                     }
-                    
+
                     $getLoaiSim = get_post_meta(get_the_ID(), 'loaisim', true );
                     global $loaiSim;
                     if ($getLoaiSim && isset($loaiSim[$getLoaiSim])) {
@@ -79,56 +86,44 @@ get_header();
                     if (isset($getNhaMang) && isset($nhaMang[$getNhaMang])) {
                         $query .= " AND (" . $nhaMang[$getNhaMang] . ")";
                     }
-                    
+
                     $dauso = get_post_meta(get_the_ID(), 'dauso', true );
                     if ($dauso) {
                         $len = strlen($dauso);
                         $query .= " AND (LEFT(`post_name`, $len) = $dauso)";
                     }
-                    
+
                     $namsinh = get_post_meta(get_the_ID(), 'namsinh', true );
                     if ($namsinh) {
                         $query .= " AND (RIGHT(`post_name`, 4) = $namsinh)";
                     }
-                    
+
+                    $giaTu = isset($_GET['giatu']) ? $_GET['giatu'] : get_post_meta(get_the_ID(), 'giatu', true );
+                    $giaDen = isset($_GET['giaden']) ? $_GET['giaden'] : get_post_meta(get_the_ID(), 'giaden', true );
+
+                    if (isset($giaTu) || isset($giaDen)) {
+                        if ($giaTu) {
+                            $query .= " AND price >= $giaTu";
+                        }
+                        if ($giaDen) {
+                            $query .= " AND price <= $giaDen";
+                        }
+                    }
+                    if (isset($_GET['sapxep'])) {
+                        $sapxep = $_GET['sapxep'];
+                        if ($sapxep == 1) {
+                            $order   = 'ASC';
+                        } else {
+                            $order   = 'DESC';
+                        }
+                        $args['orderby'] = 'none';
+                        $query .= " ORDER BY wpsim_posts.price $order";
+                    }
+
                     if ($query) {
                         $args['timsim'] = $query;
                     }
-                    
-                    $giaTu = isset($_GET['giatu']) ? $_GET['giatu'] : get_post_meta(get_the_ID(), 'giatu', true );
-                    $giaDen = isset($_GET['giaden']) ? $_GET['giaden'] : get_post_meta(get_the_ID(), 'giaden', true );
-                    
-                    if (isset($giaTu) || isset($giaDen)) {
-                        if ($giaTu) {
-                            $args['meta_query'][] =  array(
-                                'key'     => 'price',
-                                'value'   => $giaTu,
-                                'type'    => 'NUMERIC',
-                                'compare' => '>=',
-                            );
-                        }
-                        if ($giaDen) {
-                            $args['meta_query'][] =  array(
-                                'key'     => 'price',
-                                'value'   => $giaDen,
-                                'type'    => 'NUMERIC',
-                                'compare' => '<=',
-                            );
-                        }
-                    }
-                    
-                    
-                    if (isset($_GET['sapxep'])) {
-                        $sapxep = $_GET['sapxep'];
-                        $args['meta_key'] = 'price';
-                        $args['orderby'] = 'meta_value_num';
-                        if ($sapxep == 1) {
-                            $args['order']   = 'ASC';
-                        } else {
-                            $args['order']   = 'DESC';
-                        }
-                    }
-                    
+
                     $wp_query = new WP_Query( $args );
 
                     if ( $wp_query->have_posts() ) :

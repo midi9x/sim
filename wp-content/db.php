@@ -1,0 +1,1 @@
+/Applications/XAMPP/xamppfiles/htdocs/sim/wp-content/plugins/query-monitor/wp-content/db.php
