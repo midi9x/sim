@@ -93,9 +93,10 @@ get_header();
                         $query .= " AND (LEFT(`post_name`, $len) = $dauso)";
                     }
 
-                    $namsinh = get_post_meta(get_the_ID(), 'namsinh', true );
-                    if ($namsinh) {
-                        $query .= " AND (RIGHT(`post_name`, 4) = $namsinh)";
+                    $duoiso = get_post_meta(get_the_ID(), 'duoiso', true );
+                    if ($duoiso) {
+                        $len = strlen($duoiso);
+                        $query .= " AND (RIGHT(`post_name`, $len) = $duoiso)";
                     }
 
                     $giaTu = isset($_GET['giatu']) ? $_GET['giatu'] : get_post_meta(get_the_ID(), 'giatu', true );

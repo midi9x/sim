@@ -548,8 +548,8 @@ function thong_tin_trang_html( $post) {
         <input type="text" name="dauso" id="dauso" value="<?php echo thong_tin_trang_get_meta( 'dauso' ); ?>">
     </p>
     <p>
-        <label for="namsinh"><?php _e( 'Năm sinh', 'thong_tin_trang' ); ?></label><br>
-        <input type="text" name="namsinh" id="namsinh" value="<?php echo thong_tin_trang_get_meta( 'namsinh' ); ?>">
+        <label for="duoiso"><?php _e( 'Đuôi số', 'thong_tin_trang' ); ?></label><br>
+        <input type="text" name="duoiso" id="duoiso" value="<?php echo thong_tin_trang_get_meta( 'duoiso' ); ?>">
     </p>
     <p>
         <label for="loaisim"><?php _e( 'Loại sim', 'thong_tin_trang' ); ?></label><br>
@@ -592,8 +592,8 @@ function thong_tin_trang_save( $post_id ) {
         update_post_meta( $post_id, 'giaden', esc_attr( $_POST['giaden'] ) );
     if ( isset( $_POST['dauso'] ) )
         update_post_meta( $post_id, 'dauso', esc_attr( $_POST['dauso'] ) );
-    if ( isset( $_POST['namsinh'] ) )
-        update_post_meta( $post_id, 'namsinh', esc_attr( $_POST['namsinh'] ) );
+    if ( isset( $_POST['duoiso'] ) )
+        update_post_meta( $post_id, 'duoiso', esc_attr( $_POST['duoiso'] ) );
     if ( isset( $_POST['loaisim'] ) )
         update_post_meta( $post_id, 'loaisim', esc_attr( $_POST['loaisim'] ) );
     if ( isset( $_POST['nhamang'] ) )
@@ -604,7 +604,7 @@ add_action( 'save_post', 'thong_tin_trang_save' );
 /*
     Usage: thong_tin_trang_get_meta( 'mucgia' )
     Usage: thong_tin_trang_get_meta( 'dauso' )
-    Usage: thong_tin_trang_get_meta( 'namsinh' )
+    Usage: thong_tin_trang_get_meta( 'duoiso' )
 */
 
 function custom_excerpt_length( $length ) {
@@ -841,6 +841,7 @@ function add_sim_ajax() {
         $simso = trim($simso);
         // split by space or tab
         $simso = preg_split('/\s+/', $simso);
+        $simso = array_filter($simso);
         if (count($simso) != 2) {
             $response['error'] = $response['error'] + 1;
             continue;
@@ -851,6 +852,7 @@ function add_sim_ajax() {
         // $sso = str_replace("'", "", $sso);
         // $sso = str_replace("\/", "", $sso);
         // $sso = str_replace("\\", "", $sso);
+        $sso = preg_replace('/^[\p{Z}\s]+|[\p{Z}\s]+$/u','',$sso);
         $sso = trim($sso, '.,-');
 
         $sgia = remove_character($simso[1]);
@@ -869,6 +871,10 @@ function add_sim_ajax() {
                 break;
         }
         $slug = remove_character($sso);
+        if (strlen($slug) == 9) {
+            $slug = '0' . $slug;
+            $sso = '0' . $sso;
+        }
         if (strlen($slug) != 10) {
             $response['error'] = $response['error'] + 1;
             continue;
