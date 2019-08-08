@@ -233,6 +233,15 @@ function set_columns($columns)
     return $columns;
 }
 
+function getAgency($agencyID) {
+    $term = get_term( $agencyID, 'agency' );
+    if (!empty($term)) {
+        return $term->name;
+    } else {
+        return 'Không có';
+    }
+}
+
 function column($column, $post_id)
 {
     switch ($column) {
@@ -242,12 +251,7 @@ function column($column, $post_id)
 
         case 'agency':
             $agency = get_post_field('agency', $post_id);
-            $term = get_term( $agency, 'agency' );
-            if (!empty($term)) {
-                echo $term->name;
-            } else {
-                echo 'Không có';
-            }
+            echo getAgency($agency);
             break;
         default:
             break;
@@ -615,16 +619,25 @@ add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 add_filter( 'shortcode_atts_wpcf7', 'custom_shortcode_atts_wpcf7_filter', 10, 3 );
 function custom_shortcode_atts_wpcf7_filter( $out, $pairs, $atts ) {
     $my_number = 'order_number';
-    $my_time = 'order_time';
-	$my_price = 'order_price';
+    $my_time = 'order_code';
+    $my_price = 'order_price';
+    $my_agency_id= 'order_agency_id';
+    $my_agency_name= 'order_agency_name';
+
     if ( isset( $atts[$my_time] ) ) {
         $out[$my_time] = time();
     }
     if ( isset( $atts[$my_number] ) ) {
         $out[$my_number] = $atts[$my_number];
     }
-	if ( isset( $atts[$my_price] ) ) {
+    if ( isset( $atts[$my_price] ) ) {
         $out[$my_price] = $atts[$my_price];
+    }
+    if ( isset( $atts[$my_agency_id] ) ) {
+        $out[$my_agency_id] = $atts[$my_agency_id];
+    }
+    if ( isset( $atts[$my_agency_name] ) ) {
+        $out[$my_agency_name] = $atts[$my_agency_name];
     }
     return $out;
 }
@@ -879,12 +892,10 @@ function add_sim_ajax() {
             $response['error'] = $response['error'] + 1;
             continue;
         }
-        $valueSim .= "('$sso', '','','','','', '$slug', 'sim', 'publish', $sgia, $agency, $authorId, '$time', '$time', '$time', '$time', 'closed', 'closed')";
-        if ($key < $totalSimArr - 1) {
-            $valueSim .= ', ';
-        }
+        $valueSim .= "('$sso', '','','','','', '$slug', 'sim', 'publish', $sgia, $agency, $authorId, '$time', '$time', '$time', '$time', 'closed', 'closed'),";
     }
     if ($valueSim) {
+        $valueSim = substr($valueSim, 0, -1);
         $queryInsert = "INSERT INTO $wpdb->posts(post_title, post_content, post_excerpt, to_ping, pinged, post_content_filtered, post_name, post_type, post_status, price, agency, post_author, post_date, post_date_gmt, post_modified, post_modified_gmt, comment_status, ping_status) VALUES $valueSim";
         $countInsert = $wpdb->query($queryInsert);
         $response['add'] = (int) $countInsert;
@@ -1208,6 +1219,25 @@ function sim_exists($post_name) {
     return false;
 }
 
+// add search sim
+function theme_search_where( $where ){
+    global $pagenow, $wpdb;
+    if ( is_admin()
+        && $pagenow == 'edit.php'
+        && ! empty( $_GET['post_type'] )
+        && $_GET['post_type'] == 'sim'
+        && !empty( $_GET['s'] ) ) {
+        $s = $_GET['s'];
+        $where = " AND (((post_title LIKE '%$s%')
+            OR (post_excerpt LIKE '%$s%')
+            OR (post_name LIKE '%$s%')
+            OR (post_content LIKE '%$s%')))
+            AND post_type = 'sim'";
+    }
+    return $where;
+}
+add_filter( 'posts_where', 'theme_search_where' );
+
 add_shortcode('order_number', 'get_order_number');
 function get_order_number() {
    return $_GET['order_number'];
@@ -1232,9 +1262,9 @@ add_shortcode('order_note', 'get_order_note');
 function get_order_note() {
    return $_GET['order_note'];
 }
-add_shortcode('order_time', 'get_order_time');
-function get_order_time() {
-   return $_GET['order_time'];
+add_shortcode('order_code', 'get_order_code');
+function get_order_code() {
+   return $_GET['order_code'];
 }
 add_shortcode('order_price', 'get_order_price');
 function get_order_price() {
