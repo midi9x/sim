@@ -217,6 +217,9 @@ function getLoaiSim($so = '') {
         return "Sim lục quý";
     }
 
+    if ($r1 == $r2 and $r2 == $r3 and $r3 == $r4 and $r4 == $r5) {
+        return "Sim ngũ quý";
+    }
 
     if ($r1 == $r2 and $r2 == $r3 and $r3 == $r4) {
         return "Sim tứ quý";
@@ -278,7 +281,6 @@ function getLoaiSim($so = '') {
     if ($r42 == $r22 and $r1 != $r2) {
         return "Sim lặp";
     }
-
 
     if ($r1 > $r2 and $r2 > $r3) {
         return "Sim tiến đơn";

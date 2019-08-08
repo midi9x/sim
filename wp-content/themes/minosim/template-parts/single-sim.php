@@ -37,13 +37,24 @@
 			    <img class="single-image" src="<?php echo $image;?>" alt="<?php the_title()?>">
 			</div>
 		</div>
-		<?=do_shortcode('[contact-form-7 id="85" title="Form liên hệ 1" order_number="' . get_the_title() . '" order_time="' . time() . '" order_price="' . $gia . '"]')?>
+		<?php
+			global $post;
+			$agencyID = $post->agency;
+			$agencyName = getAgency($agencyID);
+			echo do_shortcode('[contact-form-7 id="85"
+				order_code="' . time() . '"
+				title="Form liên hệ 1"
+				order_number="' . get_the_title() . '"
+				order_agency_id="' . $agencyID . '"
+				order_agency_name="' . $agencyName . '"
+				order_price="' . $gia . '"]');
+		?>
 		<div class="row mb-2">
 			<div class="col-12">
 			    <?php if (!get_the_content()): ?>
     				Mua bán sim <?php the_title();?> giá rẻ giao hàng quốc. <br>
     				Sim <?=$mang?> miễn phí giao sim tại <?php echo $_SERVER['SERVER_NAME']?> <br>
-    				Sim số <?=str_replace('.', '', get_the_title())?> đăng ký thông tin sim chính chủ. 
+    				Sim số <?=str_replace('.', '', get_the_title())?> đăng ký thông tin sim chính chủ.
 				<?php else: ?>
 				    <?php the_content() ?>
 				<?php endif; ?>

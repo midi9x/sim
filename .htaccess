@@ -132,7 +132,7 @@ RewriteRule .* "/wp-content/cache/wp-rocket/%{HTTP_HOST}%{REQUEST_URI}/index%{EN
 # END WP Rocket
 #This Apache config file was created by Duplicator Installer on 2019-08-03 02:36:29.
 #The original can be found in archived file with the name htaccess.orig
-RewriteRule ^(viettel|vinaphone|mobifone|vietnamobile|gmobile|itelecom)/([\d]{10})\.jpg$ /wp-content/themes/minosim/sim/index.php?network=$1&sim=$2 [L,QSA,NC]
+RewriteRule ^(viettel|vinaphone|mobifone|vietnamobile|gmobile|itelecom)/([\d]{1,})/([\s\S]{10,})\.jpg$ /wp-content/themes/minosim/sim/index.php?network=$1&gia=$2&sim=$3 [L,QSA,NC]
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>

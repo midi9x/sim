@@ -120,6 +120,7 @@ class MinoSimOrderAdmin
     {
         $columns = array(
             'cb'           => '<input type="checkbox">',
+            'order_code'   => __('Mã đơn hàng', 'mino-order'),
             'order_ten'    => __('Họ tên', 'mino-order'),
             'order_number' => __('Số sim', 'mino-order'),
 			'order_price' => __('Giá', 'mino-order'),
@@ -141,13 +142,15 @@ class MinoSimOrderAdmin
                 $status = $this->getSatatus($post_id);
                 echo MINOSIM_ORDER_STATUS[$status];
                 break;
-				
+
 			case 'order_price':
+            case 'order_ten':
+            case 'order_number':
                 echo get_post_meta($post_id, $column, true);
                 break;
-            
+
             default:
-            ?> 
+            ?>
                 <a class="row-title" href="<?php echo get_edit_post_link($post_id); ?>">
                     <?php echo get_post_meta($post_id, $column, true); ?>
                 </a>
@@ -162,9 +165,9 @@ class MinoSimOrderAdmin
     public function meta_boxes()
     {
         add_meta_box('order_posted', __('Thông tin đơn hàng', 'mino-order'), array($this, 'posted_meta_box'), 'order', 'normal');
-        
+
         remove_meta_box( 'submitdiv', 'order', 'side' );
-        
+
         add_meta_box( 'submitdiv', 'Cập nhật', 'post_submit_meta_box', 'order', 'side', 'high' );
 
     }
@@ -177,7 +180,14 @@ class MinoSimOrderAdmin
         $values = $this->get_posted_fields($post->ID); ?>
         <table class="form-table minosim-order">
             <tbody>
+                <tr>
+                    <th scope="row">Mã đơn hàng</th>
+                    <td>
+                        <?php echo isset($values['order_code']) ? $values['order_code'][0] : 'Không tồn tại';?>
+                    </td>
+                </tr>
                 <?php foreach ($values as $key => $value) {
+                    if ($key == 'order_code') continue;
                     $posted_field = esc_html($value[0]);
                 ?>
                     <tr>
@@ -188,8 +198,9 @@ class MinoSimOrderAdmin
                             <?php
                                 switch ($key) {
                                     case 'order_number':
+                                    case 'order_agency_name':
 									case 'order_price':
-                                        echo $posted_field; 
+                                        echo $posted_field;
                                         break;
                                     case 'order_note':
                                     case 'order_address':
@@ -209,21 +220,21 @@ class MinoSimOrderAdmin
                 <?php
                 } ?>
                 <tr>
-                        <th scope="row">Trạng thái</th>
-                        <td>
+                    <th scope="row">Trạng thái</th>
+                    <td>
+                        <?php
+                            $order_status = $this->getSatatus($post->ID);
+                        ?>
+                        <select name="order_status" class="regular-text">
                             <?php
-                                $order_status = $this->getSatatus($post->ID);
+                                foreach (MINOSIM_ORDER_STATUS as $key => $value) {
+                                    $selected = ($order_status == $key) ? ' selected' : '';
+                                    echo '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+                                }
                             ?>
-                            <select name="order_status" class="regular-text">
-                                <?php
-                                    foreach (MINOSIM_ORDER_STATUS as $key => $value) {
-                                        $selected = ($order_status == $key) ? ' selected' : '';
-                                        echo '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
-                                    }
-                                ?>
-                            </select>
-                        </td>
-                    </tr>
+                        </select>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
@@ -269,7 +280,7 @@ class MinoSimOrderAdmin
         );
 
         $posted = apply_filters('order_posted_values', $posted);
-        unset($posted['order_time']);
+        unset($posted['order_agency_id']);
         unset($posted['order_status']);
         return $posted;
     }
@@ -303,7 +314,7 @@ class MinoSimOrderAdmin
 
             // output headers so that the file is downloaded rather than displayed
             header('Content-Type: text/csv');
-            header('Content-Disposition: attachment; filename=mino-order.csv');
+            header('Content-Disposition: attachment; filename=minosim-order.csv');
             header('Content-Transfer-Encoding: binary');
 
             // create a file pointer connected to the output stream
@@ -344,10 +355,10 @@ class MinoSimOrderAdmin
                         $columns[] = $key;
                     }
                 }
-                $csv_rows[] = array_merge(array('id'=> $post_id, 'order_date'=> get_the_date('Y-m-d H:i:s', $post_id)), $values);
+                $csv_rows[] = array_merge(array('order_date'=> get_the_date('Y-m-d H:i:s', $post_id)), $values);
             }
             // add default columns
-            $pretty_columns = $columns = array_merge( array("id", "order_date"), $columns);
+            $pretty_columns = $columns = array_merge( array("order_date"), $columns);
             fputcsv($output,$pretty_columns);
 
             foreach($csv_rows as $key => $row){

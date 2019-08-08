@@ -20,7 +20,8 @@ define('MINOSIM_ORDER_STATUS', array(
 ));
 
 define('MINOSIM_ORDER_LABEL', array(
-	'order_number' => 'Số sim',
+    'order_number' => 'Số sim',
+    'order_agency_name' => 'Đại lý',
 	'order_price' => 'Giá',
 	'order_ten' => 'Họ tên',
 	'order_phone' => 'Điện thoại',
@@ -61,11 +62,11 @@ add_action('admin_menu', 'add_counter_to_order_menu');
 function add_counter_to_order_menu()
 {
     global $wpdb;
-    $query = "SELECT COUNT(*) from $wpdb->posts p 
-        INNER JOIN $wpdb->postmeta pm 
-        ON p.ID = pm.post_id 
-        WHERE pm.meta_key = 'order_status' 
-        AND (pm.meta_value = 0 OR pm.meta_value = '') 
+    $query = "SELECT COUNT(*) from $wpdb->posts p
+        INNER JOIN $wpdb->postmeta pm
+        ON p.ID = pm.post_id
+        WHERE pm.meta_key = 'order_status'
+        AND (pm.meta_value = 0 OR pm.meta_value = '')
         AND p.post_type = 'order'
         AND p.post_status = 'publish' ";
     $count = $wpdb->get_var($query);

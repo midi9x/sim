@@ -64,9 +64,11 @@ class MinoSimOrder
         );
         $post_id = wp_insert_post($post);
         add_post_meta($post_id, 'order_status', 0);
+        add_post_meta($post_id, 'order_code', $data['order_code']);
         add_post_meta($post_id, 'order_number', $data['order_number']);
+        add_post_meta($post_id, 'order_agency_id', $data['order_agency_id']);
+        add_post_meta($post_id, 'order_agency_name', $data['order_agency_name']);
 		add_post_meta($post_id, 'order_price', $data['order_price']);
-        add_post_meta($post_id, 'order_time', $data['order_time']);
         add_post_meta($post_id, 'order_ten', $data['order_ten']);
         add_post_meta($post_id, 'order_phone', $data['order_phone']);
         add_post_meta($post_id, 'order_email', $data['order_email']);

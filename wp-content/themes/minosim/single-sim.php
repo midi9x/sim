@@ -25,10 +25,10 @@ add_filter( 'wpseo_metadesc', 'filter_wpseo_metadesc', 10, 1 );
 $nhaMang = getTenNhaMang(get_the_title(), true);
 
 global $post;
-$image = home_url('/') . $nhaMang . '/' . $post->post_name . '.jpg';
+$image = home_url('/') . $nhaMang . '/' . $post->price . '/' . $post->post_title . '.jpg';
 function filter_wpseo_opengraph_image( $img ) {
     global $image;
-    return $image; 
+    return $image;
 }
 add_filter( 'wpseo_opengraph_image', 'filter_wpseo_opengraph_image', 10, 10 );
 add_filter( 'wpseo_twitter_image', 'filter_wpseo_opengraph_image', 10, 10 );
