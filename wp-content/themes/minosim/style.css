@@ -388,3 +388,12 @@ a:hover, .widget-area ul li a:hover {
 .logo img {
     width: 250px;
 }
+table tbody tr td {
+    padding: .75rem 5px!important;
+}
+@media (max-width: 321px) {
+    table tr th:last-child,
+    table tr td:last-child {
+        display: none;
+    }
+}

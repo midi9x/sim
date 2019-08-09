@@ -1206,10 +1206,6 @@ function delete_sim_ajax() {
     exit;
 }
 
-function remove_character($so) {
-    return preg_replace('/\D/', '', $so);
-}
-
 function sim_exists($post_name) {
     global $wpdb;
     $sim = $wpdb->get_row("SELECT * FROM $wpdb->posts WHERE post_name = '" . $post_name . "' AND post_type = 'sim'", OBJECT);
