@@ -131,11 +131,16 @@ $nhaMang['mobifone'] = "(LEFT(`post_name`,3) IN ('089', '090', '093', '070', '07
 
 $nhaMang['vinaphone'] = "(LEFT(`post_name`,3) IN ('091', '094', '083', '084', '085', '081', '082', '088'))";
 
-$nhaMang['vietnamobile'] = "(LEFT(`post_name`,3) IN ('092', '056', '058'))";
+$nhaMang['vietnamobile'] = "(LEFT(`post_name`,3) IN ('092', '056', '058', '052'))";
 
 $nhaMang['gmobile'] = "(LEFT(`post_name`,3) IN ('099', '059'))";
 
 $nhaMang['itelecom'] = "(LEFT(`post_name`,3) = '087')";
+
+
+function remove_character($so) {
+    return preg_replace('/\D/', '', $so);
+}
 
 function getTenNhaMang($so = '', $lowercase = false) {
     $mang = array(
@@ -170,11 +175,12 @@ function getTenNhaMang($so = '', $lowercase = false) {
         '092' => 'Vietnamobile',
         '056' => 'Vietnamobile',
         '058' => 'Vietnamobile',
+        '052' => 'Vietnamobile',
         '099' => 'Gmobile',
         '059' => 'Gmobile',
         '087' => 'iTelecom'
     );
-    $so = str_replace(' ', '', str_replace('.', '', $so));
+    $so = remove_character($so);
     $dauSo = substr($so, 0, 3);
     $dauSo = (string)$dauSo;
     $tenMang = 'Không xác định';
