@@ -10,6 +10,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: minosim
 */
 
+:root {
+  --primary-color: #3a4283;
+}
 @media (min-width: 1200px) {
     .container {
         max-width: 1080px;
@@ -33,8 +36,8 @@ a {
     }
 }
 .bg-dark {
-    background: #3a4283;
-    background-color: #3a4283!important;
+    background: var(--primary-color);
+    background-color: var(--primary-color)!important;
     color: #fff;
     padding: 0;
     margin: 0;
@@ -63,7 +66,7 @@ a {
     padding-bottom: 10px;
 }
 .widget-area h3.widget-title {
-    background: #394085;
+    background: var(--primary-color);
     color: #ffcd00;
     font-size: 15px;
     text-transform: uppercase;
@@ -85,7 +88,7 @@ a {
     text-decoration: none;
 }
 #navbarNav ul li.active a, #navbarNav ul li:hover a {
-    color: #3a4283;
+    color: var(--primary-color);
 }
 /*#navbarNav ul li.active a {
     font-weight: bold;
@@ -109,15 +112,15 @@ a {
 .btn-primary:hover,
 .btn-primary:active {
     color: #fff;
-    background-color: #394085!important;
-    border-color: #394085!important;
+    background-color: var(--primary-color)!important;
+    border-color: var(--primary-color)!important;
 }
 .page-item.active .page-link {
     background-color: #ffcd00;
     border-color: #ffcd00;
 }
 .page-link {
-    color: #3a4283;
+    color: var(--primary-color);
 }
 div.wpcf7-response-output {
     margin: 0;
@@ -127,7 +130,7 @@ footer.entry-footer {
     margin: 10px 0;
 }
 #colophon {
-    background: #3a4283;
+    background: var(--primary-color);
     color: #fff;
     padding: 10px;
     margin: 0;
@@ -152,7 +155,7 @@ div.wpcf7 {
 }
 .search-sim-form {
     padding: 10px;
-    background: #394085;
+    background: var(--primary-color);
     margin-bottom: 10px;
     color: #fff;
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
@@ -213,7 +216,7 @@ td.so-sim a {
 }
 .left-icon svg {
     font-size: 30px;
-    color: #3a4283;
+    color: var(--primary-color);
 }
 .right-text {
     font-size: 13px;
@@ -392,8 +395,16 @@ table tbody tr td {
     padding: .75rem 5px!important;
 }
 @media (max-width: 321px) {
-    table tr th:last-child,
-    table tr td:last-child {
-        display: none;
+    table tbody tr td {
+        padding: .75rem 0!important;
     }
+}
+.widget ul.menu li:nth-child(n+9) {
+    display: none;
+}
+.widget ul.menu li:last-child {
+    display: block;
+}
+.widget-area ul li.read-more a {
+    color: #c4161c;
 }

@@ -36,4 +36,9 @@ jQuery(document).ready(function($) {
         }
         $('#form-loc-sim').submit();
     });
+
+    $('li.read-more').on('click', function (e) {
+        e.preventDefault();
+        $(this).parent().find('li').show();
+    });
 });
